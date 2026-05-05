@@ -197,4 +197,33 @@ $('#iDeleteBtn').on('click', function () {
     Swal.fire({ icon: 'warning', title: 'No selection', text: 'Click a row to select a part first.', background: '#151820', color: '#e8eaf0', confirmButtonColor: '#FF6B00' });
     return;
   }
- 
+  Swal.fire({
+    title: 'Delete Part?',
+    text: 'This will remove the part from inventory.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#ef4444',
+    cancelButtonColor: '#3b82f6',
+    confirmButtonText: 'Yes, Delete',
+    background: '#151820', color: '#e8eaf0'
+  }).then(result => {
+    if (result.isConfirmed) {
+      item_db.splice(selectedItemIndex, 1);
+      resetItemForm();
+      Swal.fire({ icon: 'success', title: 'Deleted!', text: 'Part removed from inventory.', background: '#151820', color: '#e8eaf0', confirmButtonColor: '#FF6B00', timer: 1200, showConfirmButton: false });
+    }
+  });
+});
+
+// Reset button
+$('#iResetBtn').on('click', resetItemForm);
+
+// Live search
+$('#partSearch').on('input', function () {
+  loadItemTable($(this).val());
+});
+
+
+$(document).ready(function () {
+  loadItemTable();
+});
