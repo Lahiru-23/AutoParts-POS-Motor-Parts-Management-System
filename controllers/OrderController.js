@@ -300,7 +300,29 @@ export function renderOrderHistory() {
   });
 }
 
+// ── Dashboard Sync
 
+export function getDashboardStats() {
+  return {
+    totalRevenue: order_db.reduce((s, o) => s + o.total, 0),
+    totalOrders:  order_db.length,
+    totalCustomers: customer_db.length,
+    lowStockItems: item_db.filter(i => parseInt(i.quantity) <= 5)
+  };
+}
 
+$(document).ready(function () {
+  syncOrderCustomers();
+  syncAvailableItems();
+  generateNextOrderId();
+
+  // Set today's date display
+  const today = new Date();
+  const yyyy  = today.getFullYear();
+  const mm    = String(today.getMonth() + 1).padStart(2, '0');
+  const dd    = String(today.getDate()).padStart(2, '0');
+  const formattedDate = `${dd}/${mm}/${yyyy}`;
+  $('#currentDateDisplay').text(formattedDate);
+});
 
 
