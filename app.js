@@ -98,3 +98,45 @@ $(document).on('click', '.sidebar-link', function () {
   navigateTo($(this).data('section'));
 });
 
+// ── Order ID helper
+function generateNextOrderId() {
+  const nextId = 'ORD-' + String(order_db.length + 1).padStart(4, '0');
+  $('#orderIdDisplay').val(nextId);
+}
+
+
+//  LOGIN
+
+const CREDENTIALS = { username: 'admin', password: 'admin123' };
+
+$('#passToggle').on('click', function () {
+  const inp = $('#loginPassword');
+  const show = inp.attr('type') === 'password';
+  inp.attr('type', show ? 'text' : 'password');
+  $(this).find('i').toggleClass('bi-eye bi-eye-slash');
+});
+
+function attemptLogin() {
+  const u = $('#loginUsername').val().trim();
+  const p = $('#loginPassword').val().trim();
+
+  if (u === CREDENTIALS.username && p === CREDENTIALS.password) {
+    $('#login-page').fadeOut(300, function () {
+      $('#main-app').fadeIn(300);
+      navigateTo('dashboard');
+    });
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Login Failed',
+      text: 'Invalid username or password. Try admin / admin123.',
+      background: '#151820', color: '#e8eaf0', confirmButtonColor: '#FF6B00'
+    });
+  }
+}
+
+$('#loginBtn').on('click', attemptLogin);
+$('#loginPassword').on('keyup', function (e) {
+  if (e.key === 'Enter') attemptLogin();
+});
+
