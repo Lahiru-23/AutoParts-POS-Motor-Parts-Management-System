@@ -238,6 +238,30 @@ $('#placeOrderBtn').on('click', function () {
       }
     });
 
+// Save order
+    const order = new OrderModel(orderId, customerName, orderedItems, total);
+    order_db.push(order);
+
+    // Reset UI
+    cart = [];
+    renderCart();
+    generateNextOrderId();
+    $('#orderCustomer').val('');
+    renderPartsGrid();
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Order Placed!',
+      html: `
+                <p><strong>${orderId}</strong> has been placed successfully.</p>
+                <p style="color:#FF6B00;font-size:1.2rem;font-weight:700">Total: Rs. ${total.toFixed(2)}</p>
+                <p style="color:#7a8099;font-size:0.82rem">Stock has been updated automatically.</p>`,
+      background: '#151820', color: '#e8eaf0', confirmButtonColor: '#FF6B00'
+    });
+  });
+});
+
+
 
 
 
