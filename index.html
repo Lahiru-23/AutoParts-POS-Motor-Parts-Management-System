@@ -51,7 +51,65 @@
   </div>
 </div>
 
+<!-- ------------ VIEW — MAIN APPLICATION--------------- -->
+<div id="main-app">
 
+  <!------SIDEBAR --------->
+  <aside class="sidebar">
+
+    <div class="sidebar-brand">
+      <div class="brand-icon">🔧</div>
+      <div>
+        <div class="brand-text">AutoParts</div>
+        <div class="brand-sub">POS System</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <button class="sidebar-link active" data-section="dashboard">
+        <i class="bi bi-speedometer2"></i><span>Dashboard</span>
+      </button>
+      <button class="sidebar-link" data-section="orders">
+        <i class="bi bi-cart3"></i><span>New Order</span>
+        <span class="nav-badge" id="cartCountBadge" style="display:none">0</span>
+      </button>
+
+      <div class="nav-section-label">Management</div>
+      <button class="sidebar-link" data-section="customers">
+        <i class="bi bi-people"></i><span>Customers</span>
+      </button>
+      <button class="sidebar-link" data-section="parts">
+        <i class="bi bi-box-seam"></i><span>Parts / Items</span>
+      </button>
+      <button class="sidebar-link" data-section="orderhistory">
+        <i class="bi bi-clock-history"></i><span>Order History</span>
+      </button>
+      <button class="sidebar-link" data-section="invoices">
+        <i class="bi bi-receipt"></i><span>Invoices</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar">A</div>
+        <div>
+          <div class="user-name">Admin</div>
+          <div class="user-role">Cashier</div>
+        </div>
+      </div>
+      <button class="btn-logout" id="logoutBtn" type="button">
+        <i class="bi bi-box-arrow-left me-1"></i> Logout
+      </button>
+    </div>
+
+  </aside>
+
+
+
+    </div>
+    <!-- /page-content -->
+  </main>
 
 
 </div>
