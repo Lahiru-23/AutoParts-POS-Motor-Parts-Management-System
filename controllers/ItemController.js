@@ -167,6 +167,29 @@ $('#iQty').on('input', function () {
   if (!isNaN(v) && v >= 0) clearFieldError('iQty'); else showFieldError('iQty', 'Cannot be negative');
 });
 
+// Save
+$('#iSaveBtn').on('click', function () {
+  if (!validateItem()) return;
+
+  const obj = new ItemModel(
+    selectedItemIndex !== null ? item_db[selectedItemIndex].id : getNextPartCode(),
+    $('#iDesc').val().trim(),
+    $('#iPrice').val(),
+    $('#iQty').val(),
+    $('#iCategory').val(),
+    currentItemImageUrl
+  );
+
+  if (selectedItemIndex !== null) {
+    item_db[selectedItemIndex] = obj;
+    Swal.fire({ icon: 'success', title: 'Updated!', text: 'Part record updated.', background: '#151820', color: '#e8eaf0', confirmButtonColor: '#FF6B00', timer: 1500, showConfirmButton: false });
+  } else {
+    item_db.push(obj);
+    Swal.fire({ icon: 'success', title: 'Added!', text: 'New part added to inventory.', background: '#151820', color: '#e8eaf0', confirmButtonColor: '#FF6B00', timer: 1500, showConfirmButton: false });
+  }
+
+  resetItemForm();
+});
 
 $(document).ready(function () {
   loadItemTable();
