@@ -139,6 +139,30 @@ $('#customerForm .form-control-pos').on('input', function () {
 });
 
 
+// Update and save
+$('#cSaveBtn').on('click', function () {
+  if (!validateCustomer()) return;
+
+  const obj = new CustomerModel(
+    $('#cName').val().trim(),
+    $('#cPhone').val().trim(),
+    $('#cEmail').val().trim(),
+    $('#cNic').val().trim(),
+    $('#cAddress').val().trim()
+  );
+
+  if (selectedCustomerIndex !== null) {
+    customer_db[selectedCustomerIndex] = obj;
+    Swal.fire({ icon: 'success', title: 'Updated!', text: 'Customer record updated.', background: '#151820', color: '#e8eaf0', confirmButtonColor: '#FF6B00', timer: 1500, showConfirmButton: false });
+  } else {
+    customer_db.push(obj);
+    Swal.fire({ icon: 'success', title: 'Added!', text: 'New customer registered.', background: '#151820', color: '#e8eaf0', confirmButtonColor: '#FF6B00', timer: 1500, showConfirmButton: false });
+  }
+
+  resetCustomerForm();
+});
+
+
 $(document).ready(function () {
   loadCustomerTable();
 });
