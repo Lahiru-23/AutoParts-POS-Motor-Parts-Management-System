@@ -106,6 +106,30 @@ function resetCustomerForm() {
   syncOrderCustomers();
 }
 
+// ── Events ───────────────────────────────────────────────────
+
+
+$('#customerTableBody').on('click', 'tr', function () {
+  const idx = parseInt($(this).data('index'));
+  if (isNaN(idx)) return;
+
+  selectedCustomerIndex = idx;
+  const c = customer_db[idx];
+
+  $('#cName').val(c.name);
+  $('#cPhone').val(c.contactNumber);
+  $('#cEmail').val(c.email);
+  $('#cNic').val(c.nic);
+  $('#cAddress').val(c.address);
+
+  $('.form-control-pos').removeClass('is-valid is-invalid');
+  $('#cSaveBtn').html('<i class="bi bi-pencil-square"></i> Update');
+  $('#customerFormTitle').text('Edit Customer');
+
+  $('#customerTableBody tr').removeClass('selected-row');
+  $(this).addClass('selected-row');
+});
+
 
 
 $(document).ready(function () {
