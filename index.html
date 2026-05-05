@@ -342,6 +342,59 @@
       <!-- /item--- -->
 
 
+      <!-- --------VIEW — NEW ORDER--------->
+
+      <div class="page-section" id="section-orders">
+        <div class="order-layout">
+          <div>
+            <div class="pos-card mb-3">
+              <div class="pos-card-body" style="padding:0.85rem">
+                <div class="row g-2 align-items-end">
+                  <div class="col-md-5">
+                    <label class="form-label-pos">Select Customer *</label>
+                    <select id="orderCustomer" class="form-control-pos">
+                      <option value="">-- Choose Customer --</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="form-label-pos">Order ID</label>
+                    <input type="text" id="orderIdDisplay" class="form-control-pos" disabled
+                           style="font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--primary)">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label-pos">Search Parts</label>
+                    <div class="search-wrapper">
+                      <i class="bi bi-search"></i>
+                      <input type="text" id="orderPartSearch" class="form-control-pos" placeholder="Filter by part name…">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="parts-grid" id="partsGrid"></div>
+          </div>
+          <div class="cart-panel">
+            <div class="cart-header">
+              <span><i class="bi bi-cart3 me-2" style="color:var(--primary)"></i>Cart</span>
+              <span id="cartCount" style="font-size:0.8rem;color:var(--text-muted)">0 items</span>
+            </div>
+            <div class="cart-items" id="cartItemsContainer">
+              <div class="empty-state"><i class="bi bi-cart"></i><p>No items added yet</p></div>
+            </div>
+            <div class="cart-footer">
+              <div class="cart-total">
+                <div class="cart-total-row"><span>Subtotal</span><span id="cartSubtotal">Rs. 0.00</span></div>
+                <div class="cart-total-row grand"><span>Total</span><span id="cartTotal">Rs. 0.00</span></div>
+              </div>
+              <button class="btn-place-order" id="placeOrderBtn" disabled>
+                <i class="bi bi-bag-check me-2"></i>Place Order
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /orders -->
+
 
 
     </div>
