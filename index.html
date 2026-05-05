@@ -120,6 +120,75 @@
     </div>
 
     <div class="page-content">
+      <!-----------VIEW — DASHBOARD------- -->
+      <div class="page-section active" id="section-dashboard">
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-lg-3">
+            <div class="stat-card orange">
+              <div class="stat-icon orange"><i class="bi bi-currency-exchange"></i></div>
+              <div class="stat-value" id="dash-sales">Rs. 0.00</div>
+              <div class="stat-label">Total Revenue</div>
+              <div class="stat-change"><i class="bi bi-arrow-up-short"></i> Session total</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card green">
+              <div class="stat-icon green"><i class="bi bi-bag-check"></i></div>
+              <div class="stat-value" id="dash-orders">0</div>
+              <div class="stat-label">Total Orders</div>
+              <div class="stat-change"><i class="bi bi-arrow-up-short"></i> This session</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card blue">
+              <div class="stat-icon blue"><i class="bi bi-people"></i></div>
+              <div class="stat-value" id="dash-customers">0</div>
+              <div class="stat-label">Customers</div>
+              <div class="stat-change"><i class="bi bi-person-plus"></i> Registered</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card red">
+              <div class="stat-icon red"><i class="bi bi-exclamation-triangle"></i></div>
+              <div class="stat-value" id="dash-lowstock">0</div>
+              <div class="stat-label">Low Stock Parts</div>
+              <div class="stat-change down"><i class="bi bi-exclamation"></i> Needs restocking</div>
+            </div>
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-lg-8">
+            <div class="pos-card">
+              <div class="pos-card-header">
+                <i class="bi bi-clock-history"></i> Recent Transactions
+              </div>
+              <div class="pos-card-body" style="padding:0">
+                <div class="table-responsive">
+                  <table class="pos-table">
+                    <thead>
+                    <tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th></tr>
+                    </thead>
+                    <tbody id="dashRecentOrders">
+                    <tr><td colspan="5"><div class="empty-state"><i class="bi bi-receipt"></i><p>No orders yet</p></div></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="pos-card h-100">
+              <div class="pos-card-header"><i class="bi bi-exclamation-circle"></i> Low Stock Alerts</div>
+              <div class="pos-card-body" id="dashLowStockList">
+                <div class="empty-state"><i class="bi bi-check-circle" style="color:var(--success)"></i><p>All parts sufficiently stocked</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /dashboard -->
+
+
 
 
     </div>
