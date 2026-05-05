@@ -140,3 +140,48 @@ $('#loginPassword').on('keyup', function (e) {
   if (e.key === 'Enter') attemptLogin();
 });
 
+
+//  LOGOUT
+
+$('#logoutBtn').on('click', function () {
+  Swal.fire({
+    title: 'Logout?',
+    text: 'All session data will be cleared on logout.',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, Logout',
+    confirmButtonColor: '#FF6B00',
+    cancelButtonColor:  '#3b82f6',
+    background: '#151820', color: '#e8eaf0'
+  }).then(result => {
+    if (!result.isConfirmed) return;
+
+    // Clear all in-memory data
+    customer_db.length = 0;
+    item_db.length     = 0;
+    order_db.length    = 0;
+
+    $('#main-app').fadeOut(300, function () {
+      $('#loginUsername').val('');
+      $('#loginPassword').val('');
+      $('#login-page').fadeIn(300);
+    });
+  });
+});
+
+
+function setTopbarDate() {
+  const opts = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+  $('#topbarDate').text(new Date().toLocaleDateString('en-LK', opts));
+}
+
+
+$(document).ready(function () {
+  seedSampleData();
+  setTopbarDate();
+
+
+  loadCustomerTable();
+  loadItemTable();
+  refreshDashboard();
+});
