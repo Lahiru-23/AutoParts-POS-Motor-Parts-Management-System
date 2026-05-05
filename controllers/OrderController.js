@@ -261,6 +261,45 @@ $('#placeOrderBtn').on('click', function () {
   });
 });
 
+// ── Order History ────────────────────────────────────────────
+
+export function renderOrderHistory() {
+  const tbody = $('#orderHistoryBody');
+  tbody.empty();
+
+  if (order_db.length === 0) {
+    tbody.html(`<tr><td colspan="6">
+            <div class="empty-state">
+                <i class="bi bi-receipt"></i>
+                <p>No orders placed yet</p>
+            </div>
+        </td></tr>`);
+    return;
+  }
+
+  [...order_db].reverse().forEach(o => {
+    const itemSummary = o.items.slice(0, 2).map(i => `${i.description} ×${i.quantity}`).join(', ')
+      + (o.items.length > 2 ? ` +${o.items.length - 2} more` : '');
+
+    tbody.append(`
+            <tr>
+                <td><span class="order-id-badge">${o.id}</span></td>
+                <td style="font-weight:600">${o.customerName}</td>
+                <td style="font-size:0.8rem;color:var(--text-muted)">${itemSummary}</td>
+                <td style="color:var(--primary);font-weight:700;font-family:'Rajdhani',sans-serif">
+                    Rs. ${o.total.toFixed(2)}
+                </td>
+                <td style="color:var(--text-muted);font-size:0.78rem">${o.date}</td>
+                <td>
+                    <button class="btn-pos btn-pos-sm btn-pos-secondary view-invoice-btn" data-id="${o.id}">
+                        <i class="bi bi-receipt"></i> Invoice
+                    </button>
+                </td>
+            </tr>
+        `);
+  });
+}
+
 
 
 
