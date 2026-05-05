@@ -146,5 +146,32 @@ $(document).on('click', '.part-add-btn', function (e) {
   renderCart();
 });
 
+// Increase qty
+$(document).on('click', '.cart-inc', function () {
+  const i = parseInt($(this).data('i'));
+  if (cart[i].quantity >= cart[i].maxQty) {
+    Swal.fire({
+      icon: 'warning', title: 'Stock Limit!',
+      html: `Only <strong>${cart[i].maxQty}</strong> available.`,
+      background: '#151820', color: '#e8eaf0', confirmButtonColor: '#FF6B00',
+      timer: 1500, showConfirmButton: false
+    });
+    return;
+  }
+  cart[i].quantity++;
+  renderCart();
+});
+
+// Decrease qty
+$(document).on('click', '.cart-dec', function () {
+  const i = parseInt($(this).data('i'));
+  if (cart[i].quantity <= 1) {
+    cart.splice(i, 1);
+  } else {
+    cart[i].quantity--;
+  }
+  renderCart();
+});
+
 
 
