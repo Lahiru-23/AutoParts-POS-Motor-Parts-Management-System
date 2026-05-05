@@ -173,5 +173,18 @@ $(document).on('click', '.cart-dec', function () {
   renderCart();
 });
 
+// Remove item
+$(document).on('click', '.cart-del', function () {
+  const i = parseInt($(this).data('i'));
+  cart.splice(i, 1);
+  renderCart();
+});
+
+// Part search
+$('#orderPartSearch').on('input', function () {
+  renderPartsGrid($(this).val());
+});
+
+
 
 
