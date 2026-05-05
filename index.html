@@ -254,6 +254,93 @@
       </div>
       <!-- /customers -->
 
+      <!-- -------VIEW —  ITEMS---------->
+      <div class="page-section" id="section-parts">
+        <div class="row g-3">
+          <div class="col-lg-4">
+            <div class="pos-card">
+              <div class="pos-card-header"><i class="bi bi-box-seam"></i> <span id="partFormTitle">Add Part</span></div>
+              <div class="pos-card-body">
+                <form id="itemForm" novalidate>
+                  <div class="form-group">
+                    <label class="form-label-pos">Part Code</label>
+                    <input type="text" id="iId" class="form-control-pos" placeholder="Auto-generated" disabled>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label-pos">Part Name / Description *</label>
+                    <input type="text" id="iDesc" class="form-control-pos" placeholder="e.g. Toyota Hilux Brake Pad Set" required>
+                    <span class="invalid-text" id="iDesc-err"></span>
+                  </div>
+                  <div class="row g-2">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label class="form-label-pos">Unit Price (Rs.) *</label>
+                        <input type="number" id="iPrice" class="form-control-pos" placeholder="0.00" required min="1" step="0.01">
+                        <span class="invalid-text" id="iPrice-err"></span>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label class="form-label-pos">Qty in Stock *</label>
+                        <input type="number" id="iQty" class="form-control-pos" placeholder="0" required min="0" step="1">
+                        <span class="invalid-text" id="iQty-err"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label-pos">Category</label>
+                    <select id="iCategory" class="form-control-pos">
+                      <option value="Engine">Engine Parts</option>
+                      <option value="Brake">Brake System</option>
+                      <option value="Electrical">Electrical</option>
+                      <option value="Body">Body Parts</option>
+                      <option value="Filter">Filters</option>
+                      <option value="Suspension">Suspension</option>
+                      <option value="Transmission">Transmission</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label-pos">Part Image</label>
+                    <div class="d-flex align-items-center gap-3">
+                      <div class="img-preview-box" id="itemImgPreview">
+                        <i class="bi bi-image" style="color:var(--text-muted);font-size:1.5rem"></i>
+                      </div>
+                      <input type="file" id="iImage" accept="image/*" style="font-size:0.78rem;color:var(--text-muted)">
+                    </div>
+                  </div>
+                  <div class="btn-group-pos">
+                    <button type="button" class="btn-pos btn-pos-primary" id="iSaveBtn"><i class="bi bi-floppy"></i> Save</button>
+                    <button type="button" class="btn-pos btn-pos-danger" id="iDeleteBtn"><i class="bi bi-trash3"></i> Delete</button>
+                    <button type="button" class="btn-pos btn-pos-secondary" id="iResetBtn"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="pos-card">
+              <div class="pos-card-header">
+                <i class="bi bi-boxes"></i> Parts Inventory
+                <div class="ms-auto search-wrapper" style="width:210px">
+                  <i class="bi bi-search"></i>
+                  <input type="text" id="partSearch" class="form-control-pos" placeholder="Search parts…" style="padding:0.4rem 0.5rem 0.4rem 2.2rem;font-size:0.8rem">
+                </div>
+              </div>
+              <div class="pos-card-body" style="padding:0">
+                <div class="table-responsive">
+                  <table class="pos-table">
+                    <thead><tr><th>Code</th><th>Part Name</th><th>Category</th><th>Unit Price</th><th>Stock</th><th>Image</th></tr></thead>
+                    <tbody id="itemTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /item--- -->
+
 
 
 
