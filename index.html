@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoParts POS — Motor Parts Management System</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Custom Styles (VIEW) -->
+  <link rel="stylesheet" href="assets/style/style.css">
+</head>
+<body>
+
+<!-- ================================================================
+     VIEW — LOGIN PAGE
+     ================================================================ -->
+<div id="login-page">
+  <div class="login-card">
+
+    <div class="login-logo">
+      <div class="logo-icon">🔧</div>
+      <h2>AutoParts POS</h2>
+      <p>Motor Parts Management System</p>
+    </div>
+
+    <div class="form-group" style="margin-bottom:1.25rem">
+      <label class="login-label">Username</label>
+      <input type="text" id="loginUsername" class="login-input"
+             placeholder="Enter username" autocomplete="username">
+    </div>
+
+    <div class="form-group" style="margin-bottom:1.5rem">
+      <label class="login-label">Password</label>
+      <div class="pass-wrapper">
+        <input type="password" id="loginPassword" class="login-input"
+               placeholder="Enter password" autocomplete="current-password">
+        <button class="pass-toggle" id="passToggle" type="button">
+          <i class="bi bi-eye"></i>
+        </button>
+      </div>
+    </div>
+
+    <button class="btn-login" id="loginBtn" type="button">
+      <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+    </button>
+    <div class="hint-text">Default credentials: <strong>admin</strong> / <strong>admin123</strong></div>
+
+  </div>
+</div>
+
+
+<!-- ================================================================
+     VIEW — MAIN APPLICATION
+     ================================================================ -->
+<div id="main-app">
+
+  <!-- ── SIDEBAR ─────────────────────────────────────────────── -->
+  <aside class="sidebar">
+
+    <div class="sidebar-brand">
+      <div class="brand-icon">🔧</div>
+      <div>
+        <div class="brand-text">AutoParts</div>
+        <div class="brand-sub">POS System</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <button class="sidebar-link active" data-section="dashboard">
+        <i class="bi bi-speedometer2"></i><span>Dashboard</span>
+      </button>
+      <button class="sidebar-link" data-section="orders">
+        <i class="bi bi-cart3"></i><span>New Order</span>
+        <span class="nav-badge" id="cartCountBadge" style="display:none">0</span>
+      </button>
+
+      <div class="nav-section-label">Management</div>
+      <button class="sidebar-link" data-section="customers">
+        <i class="bi bi-people"></i><span>Customers</span>
+      </button>
+      <button class="sidebar-link" data-section="parts">
+        <i class="bi bi-box-seam"></i><span>Parts / Items</span>
+      </button>
+      <button class="sidebar-link" data-section="orderhistory">
+        <i class="bi bi-clock-history"></i><span>Order History</span>
+      </button>
+      <button class="sidebar-link" data-section="invoices">
+        <i class="bi bi-receipt"></i><span>Invoices</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar">A</div>
+        <div>
+          <div class="user-name">Admin</div>
+          <div class="user-role">Cashier</div>
+        </div>
+      </div>
+      <button class="btn-logout" id="logoutBtn" type="button">
+        <i class="bi bi-box-arrow-left me-1"></i> Logout
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- ── MAIN CONTENT ────────────────────────────────────────── -->
+  <main class="main-content">
+
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div class="topbar-title" id="pageTitle">Dashboard</div>
+      <div class="topbar-right">
+        <div class="topbar-date">
+          <i class="bi bi-calendar3 me-1"></i>
+          <span id="topbarDate"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-content">
+
+      <!-- ================================================
+           VIEW — DASHBOARD
+           ================================================ -->
+      <div class="page-section active" id="section-dashboard">
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-lg-3">
+            <div class="stat-card orange">
+              <div class="stat-icon orange"><i class="bi bi-currency-exchange"></i></div>
+              <div class="stat-value" id="dash-sales">Rs. 0.00</div>
+              <div class="stat-label">Total Revenue</div>
+              <div class="stat-change"><i class="bi bi-arrow-up-short"></i> Session total</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card green">
+              <div class="stat-icon green"><i class="bi bi-bag-check"></i></div>
+              <div class="stat-value" id="dash-orders">0</div>
+              <div class="stat-label">Total Orders</div>
+              <div class="stat-change"><i class="bi bi-arrow-up-short"></i> This session</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card blue">
+              <div class="stat-icon blue"><i class="bi bi-people"></i></div>
+              <div class="stat-value" id="dash-customers">0</div>
+              <div class="stat-label">Customers</div>
+              <div class="stat-change"><i class="bi bi-person-plus"></i> Registered</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card red">
+              <div class="stat-icon red"><i class="bi bi-exclamation-triangle"></i></div>
+              <div class="stat-value" id="dash-lowstock">0</div>
+              <div class="stat-label">Low Stock Parts</div>
+              <div class="stat-change down"><i class="bi bi-exclamation"></i> Needs restocking</div>
+            </div>
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-lg-8">
+            <div class="pos-card">
+              <div class="pos-card-header">
+                <i class="bi bi-clock-history"></i> Recent Transactions
+              </div>
+              <div class="pos-card-body" style="padding:0">
+                <div class="table-responsive">
+                  <table class="pos-table">
+                    <thead>
+                    <tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th></tr>
+                    </thead>
+                    <tbody id="dashRecentOrders">
+                    <tr><td colspan="5"><div class="empty-state"><i class="bi bi-receipt"></i><p>No orders yet</p></div></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="pos-card h-100">
+              <div class="pos-card-header"><i class="bi bi-exclamation-circle"></i> Low Stock Alerts</div>
+              <div class="pos-card-body" id="dashLowStockList">
+                <div class="empty-state"><i class="bi bi-check-circle" style="color:var(--success)"></i><p>All parts sufficiently stocked</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /dashboard -->
+
+
+      <!-- ================================================
+           VIEW — CUSTOMERS
+           ================================================ -->
+      <div class="page-section" id="section-customers">
+        <div class="row g-3">
+          <div class="col-lg-4">
+            <div class="pos-card">
+              <div class="pos-card-header"><i class="bi bi-person-plus"></i> <span id="customerFormTitle">Add Customer</span></div>
+              <div class="pos-card-body">
+                <form id="customerForm" novalidate>
+                  <div class="form-group">
+                    <label class="form-label-pos">Full Name *</label>
+                    <input type="text" id="cName" class="form-control-pos" placeholder="e.g. Kamal Perera" required minlength="2">
+                    <span class="invalid-text" id="cName-err"></span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label-pos">Phone Number *</label>
+                    <input type="tel" id="cPhone" class="form-control-pos" placeholder="07XXXXXXXX" required>
+                    <span class="invalid-text" id="cPhone-err"></span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label-pos">Email Address *</label>
+                    <input type="email" id="cEmail" class="form-control-pos" placeholder="example@email.com" required>
+                    <span class="invalid-text" id="cEmail-err"></span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label-pos">NIC Number *</label>
+                    <input type="text" id="cNic" class="form-control-pos" placeholder="123456789V or 200012345678" required minlength="10">
+                    <span class="invalid-text" id="cNic-err"></span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label-pos">Address *</label>
+                    <textarea id="cAddress" class="form-control-pos" placeholder="No.12, Main Street, Colombo" required></textarea>
+                    <span class="invalid-text" id="cAddress-err"></span>
+                  </div>
+                  <div class="btn-group-pos">
+                    <button type="button" class="btn-pos btn-pos-primary" id="cSaveBtn"><i class="bi bi-floppy"></i> Save</button>
+                    <button type="button" class="btn-pos btn-pos-danger" id="cDeleteBtn"><i class="bi bi-trash3"></i> Delete</button>
+                    <button type="button" class="btn-pos btn-pos-secondary" id="cResetBtn"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="pos-card">
+              <div class="pos-card-header">
+                <i class="bi bi-people"></i> Customer List
+                <div class="ms-auto search-wrapper" style="width:210px">
+                  <i class="bi bi-search"></i>
+                  <input type="text" id="customerSearch" class="form-control-pos" placeholder="Search…" style="padding:0.4rem 0.5rem 0.4rem 2.2rem;font-size:0.8rem">
+                </div>
+              </div>
+              <div class="pos-card-body" style="padding:0">
+                <div class="table-responsive">
+                  <table class="pos-table">
+                    <thead><tr><th>#</th><th>Name</th><th>Phone</th><th>Email</th><th>NIC</th><th>Address</th></tr></thead>
+                    <tbody id="customerTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /customers -->
+
+
+      <!-- ================================================
+           VIEW — PARTS / ITEMS
+           ================================================ -->
+      <div class="page-section" id="section-parts">
+        <div class="row g-3">
+          <div class="col-lg-4">
+            <div class="pos-card">
+              <div class="pos-card-header"><i class="bi bi-box-seam"></i> <span id="partFormTitle">Add Part</span></div>
+              <div class="pos-card-body">
+                <form id="itemForm" novalidate>
+                  <div class="form-group">
+                    <label class="form-label-pos">Part Code</label>
+                    <input type="text" id="iId" class="form-control-pos" placeholder="Auto-generated" disabled>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label-pos">Part Name / Description *</label>
+                    <input type="text" id="iDesc" class="form-control-pos" placeholder="e.g. Toyota Hilux Brake Pad Set" required>
+                    <span class="invalid-text" id="iDesc-err"></span>
+                  </div>
+                  <div class="row g-2">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label class="form-label-pos">Unit Price (Rs.) *</label>
+                        <input type="number" id="iPrice" class="form-control-pos" placeholder="0.00" required min="1" step="0.01">
+                        <span class="invalid-text" id="iPrice-err"></span>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label class="form-label-pos">Qty in Stock *</label>
+                        <input type="number" id="iQty" class="form-control-pos" placeholder="0" required min="0" step="1">
+                        <span class="invalid-text" id="iQty-err"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label-pos">Category</label>
+                    <select id="iCategory" class="form-control-pos">
+                      <option value="Engine">Engine Parts</option>
+                      <option value="Brake">Brake System</option>
+                      <option value="Electrical">Electrical</option>
+                      <option value="Body">Body Parts</option>
+                      <option value="Filter">Filters</option>
+                      <option value="Suspension">Suspension</option>
+                      <option value="Transmission">Transmission</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label-pos">Part Image</label>
+                    <div class="d-flex align-items-center gap-3">
+                      <div class="img-preview-box" id="itemImgPreview">
+                        <i class="bi bi-image" style="color:var(--text-muted);font-size:1.5rem"></i>
+                      </div>
+                      <input type="file" id="iImage" accept="image/*" style="font-size:0.78rem;color:var(--text-muted)">
+                    </div>
+                  </div>
+                  <div class="btn-group-pos">
+                    <button type="button" class="btn-pos btn-pos-primary" id="iSaveBtn"><i class="bi bi-floppy"></i> Save</button>
+                    <button type="button" class="btn-pos btn-pos-danger" id="iDeleteBtn"><i class="bi bi-trash3"></i> Delete</button>
+                    <button type="button" class="btn-pos btn-pos-secondary" id="iResetBtn"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="pos-card">
+              <div class="pos-card-header">
+                <i class="bi bi-boxes"></i> Parts Inventory
+                <div class="ms-auto search-wrapper" style="width:210px">
+                  <i class="bi bi-search"></i>
+                  <input type="text" id="partSearch" class="form-control-pos" placeholder="Search parts…" style="padding:0.4rem 0.5rem 0.4rem 2.2rem;font-size:0.8rem">
+                </div>
+              </div>
+              <div class="pos-card-body" style="padding:0">
+                <div class="table-responsive">
+                  <table class="pos-table">
+                    <thead><tr><th>Code</th><th>Part Name</th><th>Category</th><th>Unit Price</th><th>Stock</th><th>Image</th></tr></thead>
+                    <tbody id="itemTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /parts -->
+
+
+      <!-- ================================================
+           VIEW — NEW ORDER
+           ================================================ -->
+      <div class="page-section" id="section-orders">
+        <div class="order-layout">
+          <div>
+            <div class="pos-card mb-3">
+              <div class="pos-card-body" style="padding:0.85rem">
+                <div class="row g-2 align-items-end">
+                  <div class="col-md-5">
+                    <label class="form-label-pos">Select Customer *</label>
+                    <select id="orderCustomer" class="form-control-pos">
+                      <option value="">-- Choose Customer --</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="form-label-pos">Order ID</label>
+                    <input type="text" id="orderIdDisplay" class="form-control-pos" disabled
+                           style="font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--primary)">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label-pos">Search Parts</label>
+                    <div class="search-wrapper">
+                      <i class="bi bi-search"></i>
+                      <input type="text" id="orderPartSearch" class="form-control-pos" placeholder="Filter by part name…">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="parts-grid" id="partsGrid"></div>
+          </div>
+          <div class="cart-panel">
+            <div class="cart-header">
+              <span><i class="bi bi-cart3 me-2" style="color:var(--primary)"></i>Cart</span>
+              <span id="cartCount" style="font-size:0.8rem;color:var(--text-muted)">0 items</span>
+            </div>
+            <div class="cart-items" id="cartItemsContainer">
+              <div class="empty-state"><i class="bi bi-cart"></i><p>No items added yet</p></div>
+            </div>
+            <div class="cart-footer">
+              <div class="cart-total">
+                <div class="cart-total-row"><span>Subtotal</span><span id="cartSubtotal">Rs. 0.00</span></div>
+                <div class="cart-total-row grand"><span>Total</span><span id="cartTotal">Rs. 0.00</span></div>
+              </div>
+              <button class="btn-place-order" id="placeOrderBtn" disabled>
+                <i class="bi bi-bag-check me-2"></i>Place Order
+              </button>
+            </div>
+          </div>
+        </div>
+      </div><!-- /orders -->
+
+
+      <!-- ================================================
+           VIEW — ORDER HISTORY
+           ================================================ -->
+      <div class="page-section" id="section-orderhistory">
+        <div class="pos-card">
+          <div class="pos-card-header"><i class="bi bi-clock-history"></i> Order History</div>
+          <div class="pos-card-body" style="padding:0">
+            <div class="table-responsive">
+              <table class="pos-table">
+                <thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Date</th><th>Action</th></tr></thead>
+                <tbody id="orderHistoryBody">
+                <tr><td colspan="6"><div class="empty-state"><i class="bi bi-receipt"></i><p>No orders placed yet</p></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div><!-- /orderhistory -->
+
+
+      <!-- ================================================
+           VIEW — INVOICES
+           ================================================ -->
+      <div class="page-section" id="section-invoices">
+        <div id="invoiceListView">
+          <div class="pos-card">
+            <div class="pos-card-header"><i class="bi bi-receipt"></i> All Invoices</div>
+            <div class="pos-card-body" style="padding:0">
+              <div class="table-responsive">
+                <table class="pos-table">
+                  <thead><tr><th>Invoice #</th><th>Customer</th><th>Parts</th><th>Total</th><th>Date</th><th>Action</th></tr></thead>
+                  <tbody id="invoiceListBody">
+                  <tr><td colspan="6"><div class="empty-state"><i class="bi bi-receipt"></i><p>No invoices yet</p></div></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="invoiceDetailView" style="display:none">
+          <button class="btn-pos btn-pos-secondary mb-3 no-print" id="backToInvoices" type="button">
+            <i class="bi bi-arrow-left"></i> Back to Invoices
+          </button>
+          <div class="invoice-box invoice-print-area" id="invoiceContent"></div>
+          <div class="mt-3 d-flex gap-2 no-print">
+            <button class="btn-pos btn-pos-primary" onclick="window.print()" type="button">
+              <i class="bi bi-printer"></i> Print Invoice
+            </button>
+            <button class="btn-pos btn-pos-secondary" id="backToInvoices2" type="button">
+              <i class="bi bi-arrow-left"></i> Back
+            </button>
+          </div>
+        </div>
+      </div><!-- /invoices -->
+
+    </div><!-- /page-content -->
+  </main>
+
+</div><!-- /main-app -->
+
+<!-- External libs (must be before ES modules so jQuery/$  is global) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+
+<!-- Root ES module — imports all controllers -->
+<script type="module" src="app.js"></script>
+
+</body>
+</html>
