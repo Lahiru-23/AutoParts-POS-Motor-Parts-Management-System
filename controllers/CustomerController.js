@@ -130,6 +130,13 @@ $('#customerTableBody').on('click', 'tr', function () {
   $(this).addClass('selected-row');
 });
 
+// Real-time validation
+$('#customerForm .form-control-pos').on('input', function () {
+  if ($(this).val().trim()) {
+    $(this).addClass('is-valid').removeClass('is-invalid');
+    $(`#${this.id}-err`).text('');
+  }
+});
 
 
 $(document).ready(function () {
