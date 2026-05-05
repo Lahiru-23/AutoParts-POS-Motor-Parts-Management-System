@@ -414,7 +414,40 @@
       </div>
       <!-- /orderhistory -->
 
+      <!-- --- VIEW — INVOICES------->
 
+      <div class="page-section" id="section-invoices">
+        <div id="invoiceListView">
+          <div class="pos-card">
+            <div class="pos-card-header"><i class="bi bi-receipt"></i> All Invoices</div>
+            <div class="pos-card-body" style="padding:0">
+              <div class="table-responsive">
+                <table class="pos-table">
+                  <thead><tr><th>Invoice #</th><th>Customer</th><th>Parts</th><th>Total</th><th>Date</th><th>Action</th></tr></thead>
+                  <tbody id="invoiceListBody">
+                  <tr><td colspan="6"><div class="empty-state"><i class="bi bi-receipt"></i><p>No invoices yet</p></div></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="invoiceDetailView" style="display:none">
+          <button class="btn-pos btn-pos-secondary mb-3 no-print" id="backToInvoices" type="button">
+            <i class="bi bi-arrow-left"></i> Back to Invoices
+          </button>
+          <div class="invoice-box invoice-print-area" id="invoiceContent"></div>
+          <div class="mt-3 d-flex gap-2 no-print">
+            <button class="btn-pos btn-pos-primary" onclick="window.print()" type="button">
+              <i class="bi bi-printer"></i> Print Invoice
+            </button>
+            <button class="btn-pos btn-pos-secondary" id="backToInvoices2" type="button">
+              <i class="bi bi-arrow-left"></i> Back
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- /invoices -->
 
 
 
