@@ -191,6 +191,10 @@ $('#iSaveBtn').on('click', function () {
   resetItemForm();
 });
 
-$(document).ready(function () {
-  loadItemTable();
-});
+// Delete
+$('#iDeleteBtn').on('click', function () {
+  if (selectedItemIndex === null) {
+    Swal.fire({ icon: 'warning', title: 'No selection', text: 'Click a row to select a part first.', background: '#151820', color: '#e8eaf0', confirmButtonColor: '#FF6B00' });
+    return;
+  }
+ 
