@@ -188,6 +188,72 @@
       </div>
       <!-- /dashboard -->
 
+      <!-- ---------- VIEW — CUSTOMERS----------- -->
+
+      <div class="page-section" id="section-customers">
+        <div class="row g-3">
+          <div class="col-lg-4">
+            <div class="pos-card">
+              <div class="pos-card-header"><i class="bi bi-person-plus"></i> <span id="customerFormTitle">Add Customer</span></div>
+              <div class="pos-card-body">
+                <form id="customerForm" novalidate>
+                  <div class="form-group">
+                    <label class="form-label-pos">Full Name *</label>
+                    <input type="text" id="cName" class="form-control-pos" placeholder="e.g. Kamal Perera" required minlength="2">
+                    <span class="invalid-text" id="cName-err"></span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label-pos">Phone Number *</label>
+                    <input type="tel" id="cPhone" class="form-control-pos" placeholder="07XXXXXXXX" required>
+                    <span class="invalid-text" id="cPhone-err"></span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label-pos">Email Address *</label>
+                    <input type="email" id="cEmail" class="form-control-pos" placeholder="example@email.com" required>
+                    <span class="invalid-text" id="cEmail-err"></span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label-pos">NIC Number *</label>
+                    <input type="text" id="cNic" class="form-control-pos" placeholder="123456789V or 200012345678" required minlength="10">
+                    <span class="invalid-text" id="cNic-err"></span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label-pos">Address *</label>
+                    <textarea id="cAddress" class="form-control-pos" placeholder="No.12, Main Street, Colombo" required></textarea>
+                    <span class="invalid-text" id="cAddress-err"></span>
+                  </div>
+                  <div class="btn-group-pos">
+                    <button type="button" class="btn-pos btn-pos-primary" id="cSaveBtn"><i class="bi bi-floppy"></i> Save</button>
+                    <button type="button" class="btn-pos btn-pos-danger" id="cDeleteBtn"><i class="bi bi-trash3"></i> Delete</button>
+                    <button type="button" class="btn-pos btn-pos-secondary" id="cResetBtn"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="pos-card">
+              <div class="pos-card-header">
+                <i class="bi bi-people"></i> Customer List
+                <div class="ms-auto search-wrapper" style="width:210px">
+                  <i class="bi bi-search"></i>
+                  <input type="text" id="customerSearch" class="form-control-pos" placeholder="Search…" style="padding:0.4rem 0.5rem 0.4rem 2.2rem;font-size:0.8rem">
+                </div>
+              </div>
+              <div class="pos-card-body" style="padding:0">
+                <div class="table-responsive">
+                  <table class="pos-table">
+                    <thead><tr><th>#</th><th>Name</th><th>Phone</th><th>Email</th><th>NIC</th><th>Address</th></tr></thead>
+                    <tbody id="customerTableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /customers -->
+
 
 
 
