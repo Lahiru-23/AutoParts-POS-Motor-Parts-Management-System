@@ -114,5 +114,37 @@ function renderCart() {
   $('#cartCountBadge').text(cart.length).show();
 }
 
+// Add to cart
+$(document).on('click', '.part-add-btn', function (e) {
+  e.stopPropagation();
+  const idx  = parseInt($(this).data('index'));
+  const item = item_db[idx];
+
+  const existing = cart.find(c => c.itemIndex === idx);
+
+  if (existing) {
+    if (existing.quantity >= parseInt(item.quantity)) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Stock Limit Reached!',
+        html: `Only <strong>${item.quantity}</strong> unit(s) of <em>${item.description}</em> available.`,
+        background: '#151820', color: '#e8eaf0', confirmButtonColor: '#FF6B00'
+      });
+      return;
+    }
+    existing.quantity++;
+  } else {
+    cart.push({
+      itemIndex:   idx,
+      description: item.description,
+      unitPrice:   parseFloat(item.unitPrice),
+      quantity:    1,
+      maxQty:      parseInt(item.quantity)
+    });
+  }
+
+  renderCart();
+});
+
 
 
