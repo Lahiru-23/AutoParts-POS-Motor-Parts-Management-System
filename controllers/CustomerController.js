@@ -162,6 +162,40 @@ $('#cSaveBtn').on('click', function () {
   resetCustomerForm();
 });
 
+// Delete
+$('#cDeleteBtn').on('click', function () {
+  if (selectedCustomerIndex === null) {
+    Swal.fire({ icon: 'warning', title: 'No selection', text: 'Click a row to select a customer first.', background: '#151820', color: '#e8eaf0', confirmButtonColor: '#FF6B00' });
+    return;
+  }
+
+  Swal.fire({
+    title: 'Delete Customer?',
+    text: 'This action cannot be undone.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#ef4444',
+    cancelButtonColor: '#3b82f6',
+    confirmButtonText: 'Yes, Delete',
+    background: '#151820', color: '#e8eaf0'
+  }).then(result => {
+    if (result.isConfirmed) {
+      customer_db.splice(selectedCustomerIndex, 1);
+      resetCustomerForm();
+      Swal.fire({ icon: 'success', title: 'Deleted!', text: 'Customer removed.', background: '#151820', color: '#e8eaf0', confirmButtonColor: '#FF6B00', timer: 1200, showConfirmButton: false });
+    }
+  });
+});
+
+// Reset button
+$('#cResetBtn').on('click', resetCustomerForm);
+
+// Live search
+$('#customerSearch').on('input', function () {
+  loadCustomerTable($(this).val());
+});
+
+
 
 $(document).ready(function () {
   loadCustomerTable();
