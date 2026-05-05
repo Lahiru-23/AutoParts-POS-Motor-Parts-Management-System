@@ -185,6 +185,59 @@ $('#orderPartSearch').on('input', function () {
   renderPartsGrid($(this).val());
 });
 
+// ── Place Order ──────────────────────────────────────────────
+
+$('#placeOrderBtn').on('click', function () {
+  const customerName = $('#orderCustomer').val();
+
+  if (!customerName) {
+    Swal.fire({ icon: 'error', title: 'No Customer Selected!', text: 'Please select a customer before placing the order.', background: '#151820', color: '#e8eaf0', confirmButtonColor: '#FF6B00' });
+    return;
+  }
+
+  if (cart.length === 0) {
+    Swal.fire({ icon: 'warning', title: 'Cart is Empty!', text: 'Add at least one part to the cart.', background: '#151820', color: '#e8eaf0', confirmButtonColor: '#FF6B00' });
+    return;
+  }
+
+  const orderId = $('#orderIdDisplay').val();
+  const total   = cart.reduce((s, c) => s + (c.unitPrice * c.quantity), 0);
+
+  // Build order details
+  const orderedItems = cart.map(c =>
+    new OrderDetailsModel(c.description, c.quantity, c.unitPrice, c.itemIndex)
+  );
+
+  Swal.fire({
+    icon: 'question',
+    title: 'Confirm Order?',
+    html: `
+            <div style="text-align:left;font-size:0.9rem">
+                <p><strong>Order ID:</strong> ${orderId}</p>
+                <p><strong>Customer:</strong> ${customerName}</p>
+                <p><strong>Parts:</strong> ${cart.length} item(s)</p>
+                <p><strong>Total:</strong>
+                    <span style="color:#FF6B00;font-size:1.1rem;font-weight:700">
+                        Rs. ${total.toFixed(2)}
+                    </span>
+                </p>
+            </div>`,
+    showCancelButton: true,
+    confirmButtonText: '<i class="bi bi-bag-check"></i> Place Order',
+    confirmButtonColor: '#FF6B00',
+    cancelButtonColor: '#3b82f6',
+    background: '#151820', color: '#e8eaf0'
+  }).then(result => {
+    if (!result.isConfirmed) return;
+
+    // Deduct stock from item_db
+    orderedItems.forEach(detail => {
+      if (detail.itemIndex !== undefined && item_db[detail.itemIndex]) {
+        item_db[detail.itemIndex].quantity =
+          Math.max(0, parseInt(item_db[detail.itemIndex].quantity) - detail.quantity);
+      }
+    });
+
 
 
 
