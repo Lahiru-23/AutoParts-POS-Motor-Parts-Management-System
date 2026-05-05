@@ -41,3 +41,60 @@ function seedSampleData() {
   );
 }
 
+
+//  NAVIGATION
+
+const PAGE_TITLES = {
+  dashboard:    'Dashboard',
+  customers:    'Customer Management',
+  parts:        'Parts Inventory',
+  orders:       'New Order',
+  orderhistory: 'Order History',
+  invoices:     'Invoices'
+};
+
+function navigateTo(sectionId) {
+  // Switch visible section
+  $('.page-section').removeClass('active');
+  $(`#section-${sectionId}`).addClass('active');
+
+  // Highlight active sidebar link
+  $('.sidebar-link').removeClass('active');
+  $(`.sidebar-link[data-section="${sectionId}"]`).addClass('active');
+
+  // Update top-bar title
+  $('#pageTitle').text(PAGE_TITLES[sectionId] || '');
+
+  // Per-section refresh hooks
+  switch (sectionId) {
+    case 'dashboard':
+      refreshDashboard();
+      break;
+    case 'customers':
+      loadCustomerTable();
+      break;
+    case 'parts':
+      loadItemTable();
+      break;
+    case 'orders':
+      syncOrderCustomers();
+      syncAvailableItems();
+      generateNextOrderId();
+      break;
+    case 'orderhistory':
+      renderOrderHistory();
+      break;
+    case 'invoices':
+      renderInvoiceList();
+      break;
+  }
+}
+
+
+window.posNavigateTo = navigateTo;
+
+
+$(document).on('click', '.sidebar-link', function () {
+  navigateTo($(this).data('section'));
+});
+
