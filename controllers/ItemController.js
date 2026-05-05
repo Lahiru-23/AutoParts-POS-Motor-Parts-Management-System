@@ -114,7 +114,58 @@ function resetItemForm() {
   loadItemTable();
   syncAvailableItems();
 }
+// ── Events ───────────────────────────────────────────────────
 
+
+$('#itemTableBody').on('click', 'tr', function () {
+  const idx = parseInt($(this).data('index'));
+  if (isNaN(idx)) return;
+
+  selectedItemIndex = idx;
+  const item = item_db[idx];
+
+  $('#iId').val(item.id || 'P' + String(idx + 1).padStart(3, '0'));
+  $('#iDesc').val(item.description);
+  $('#iPrice').val(item.unitPrice);
+  $('#iQty').val(item.quantity);
+  $('#iCategory').val(item.category || 'Other');
+
+  currentItemImageUrl = item.picture || '';
+  $('#itemImgPreview').html(
+    item.picture
+      ? `<img src="${item.picture}">`
+      : '<i class="bi bi-image" style="color:var(--text-muted);font-size:1.5rem"></i>'
+  );
+
+  $('.form-control-pos').removeClass('is-valid is-invalid');
+  $('#iSaveBtn').html('<i class="bi bi-pencil-square"></i> Update');
+  $('#partFormTitle').text('Edit Part');
+
+  $('#itemTableBody tr').removeClass('selected-row');
+  $(this).addClass('selected-row');
+});
+
+// Image file change → preview
+$('#iImage').on('change', function () {
+  const file = this.files[0];
+  if (file && file.type.match('image.*')) {
+    currentItemImageUrl = URL.createObjectURL(file);
+    $('#itemImgPreview').html(`<img src="${currentItemImageUrl}">`);
+  }
+});
+
+// Real-time input validation
+$('#iDesc').on('input', function () {
+  if ($(this).val().trim()) clearFieldError('iDesc'); else showFieldError('iDesc', 'Required');
+});
+$('#iPrice').on('input', function () {
+  const v = parseFloat($(this).val());
+  if (v > 0) clearFieldError('iPrice'); else showFieldError('iPrice', 'Must be > 0');
+});
+$('#iQty').on('input', function () {
+  const v = parseInt($(this).val());
+  if (!isNaN(v) && v >= 0) clearFieldError('iQty'); else showFieldError('iQty', 'Cannot be negative');
+});
 
 
 $(document).ready(function () {
