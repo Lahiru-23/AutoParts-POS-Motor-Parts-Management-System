@@ -93,6 +93,19 @@ export function loadCustomerTable(filter = '') {
   });
 }
 
+// ── Reset ────────────────────────────────────────────────────
+
+function resetCustomerForm() {
+  $('#customerForm')[0].reset();
+  $('.form-control-pos').removeClass('is-valid is-invalid');
+  selectedCustomerIndex = null;
+  $('#cSaveBtn').html('<i class="bi bi-floppy"></i> Save');
+  $('#customerFormTitle').text('Add Customer');
+  $('#customerTableBody tr').removeClass('selected-row');
+  loadCustomerTable();
+  syncOrderCustomers();
+}
+
 
 
 $(document).ready(function () {
